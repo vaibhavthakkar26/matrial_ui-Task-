@@ -3,24 +3,21 @@ import axios from "axios";
 export const post = async (url, data) => {
   try {
     const response = await axios.post(url, data);
-    if (response.data.success) {
+    if (response.status === 200) {
       return {
-        success: response.data.success,
-        data: response.data.data,
-        message: response.data.message,
+        success: response.status,
+        data: response.data,
       };
     } else {
       return {
-        success: response.data.success,
-        data: response.data.data,
-        message: response.data.message,
+        success: response.status,
+        data: response.data,
       };
     }
   } catch (error) {
     return {
       success: false,
-      data: [],
-      message: error.response.data.message,
+      data: []
     };
   }
 };
@@ -43,8 +40,7 @@ export const get = async (url) => {
   } catch (error) {
     return {
       success: false,
-      data: [],
-      message: error.response.data.message,
+      data: []
     };
   }
 };

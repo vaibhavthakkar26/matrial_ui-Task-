@@ -26,6 +26,7 @@ function Layout(props) {
       <SideBar/>
       <Box
         component="main"
+        mt={10}
         sx={{ flexGrow: 1, p: 4, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         {props.children}

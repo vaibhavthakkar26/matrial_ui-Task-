@@ -1,4 +1,5 @@
 import "./App.css";
+import AddProduct from "./components/AddProduct";
 import Layout from "./components/Layout";
 import ProductDetails from "./components/ProductDetails";
 import ProductList from "./components/ProductList";
@@ -11,8 +12,8 @@ function App() {
           <Route path="/" element={<Layout> 
             <ProductList/>
           </Layout>} />
-          <Route path="/add-product" />
-          <Route path="/view-product" element={<Layout> <ProductDetails/> </Layout>}/>
+          <Route path="/add-product" element={<Layout> <AddProduct/> </Layout>}/>
+          <Route path="/view-product/:id" element={<Layout> <ProductDetails/> </Layout>}/>
       </Routes>
     </BrowserRouter>
   );
