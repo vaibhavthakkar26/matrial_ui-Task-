@@ -1,0 +1,1 @@
+export const TotalMenuList = ['create Product', 'logout', 'my Profile', 'settings']
