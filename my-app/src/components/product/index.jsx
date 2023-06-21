@@ -5,7 +5,7 @@ import { productInitialValues } from "../../Utills/helper";
 import { productSchema } from "../../Utills/validation";
 import AddImage from "../../assets/images/Add_image.jpg";
 import { addProductData } from "../../service/api.service";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function Product({ addProduct, productdata }) {
   let inputRefone;
@@ -214,7 +214,7 @@ function Product({ addProduct, productdata }) {
         )}
 
         <Box display={"flex"} flexWrap={"wrap"} gap={2}>
-          <Box width={"48%"}>
+          <Box  sx={{ width :{xs:"95%",md:"48%"}}}>
             <TextField
               label="title"
               name="title"
@@ -225,7 +225,7 @@ function Product({ addProduct, productdata }) {
             />
           </Box>
 
-          <Box width={"48%"}>
+          <Box sx={{ width :{xs:"95%",md:"48%"}}}>
             <TextField
               label="category"
               name="category"
@@ -236,7 +236,7 @@ function Product({ addProduct, productdata }) {
             />
           </Box>
 
-          <Box width={"48%"}>
+          <Box sx={{ width :{xs:"95%",md:"48%"}}}>
             <TextField
               label="price"
               name="price"
@@ -247,7 +247,7 @@ function Product({ addProduct, productdata }) {
             />
           </Box>
 
-          <Box width={"48%"}>
+          <Box sx={{ width :{xs:"95%",md:"48%"}}}>
             <TextField
               label="discount"
               name="discount"
@@ -258,7 +258,7 @@ function Product({ addProduct, productdata }) {
             />
           </Box>
 
-          <Box width={"48%"}>
+          <Box sx={{ width :{xs:"95%",md:"48%"}}}>
             <TextField
               label="rating"
               name="rating"
@@ -269,7 +269,7 @@ function Product({ addProduct, productdata }) {
             />
           </Box>
 
-          <Box width={"48%"}>
+          <Box sx={{ width :{xs:"95%",md:"48%"}}}>
             <TextField
               label="stock"
               name="stock"
@@ -280,7 +280,7 @@ function Product({ addProduct, productdata }) {
             />
           </Box>
 
-          <Box width={"48%"}>
+          <Box sx={{ width :{xs:"95%",md:"48%"}}}>
             <TextField
               label="brand"
               name="brand"
@@ -290,8 +290,12 @@ function Product({ addProduct, productdata }) {
               {...formik.getFieldProps("brand")}
             />
           </Box>
-          <Button variant="contained" type="submit" onClick={()=>navigate("/")}>
-              Back
+          <Button
+            variant="contained"
+            type="submit"
+            onClick={() => navigate("/")}
+          >
+            Back
           </Button>
           {addProduct && (
             <Button
@@ -302,7 +306,6 @@ function Product({ addProduct, productdata }) {
               submit
             </Button>
           )}
-          
         </Box>
       </Box>
     </>

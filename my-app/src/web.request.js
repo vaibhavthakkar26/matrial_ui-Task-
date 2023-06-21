@@ -25,7 +25,6 @@ export const post = async (url, data) => {
 export const get = async (url) => {
   try {
     const response = await axios.get(url);
-    console.log("res",response);
     if (response.status === 200) {
       return {
         success: response.status,

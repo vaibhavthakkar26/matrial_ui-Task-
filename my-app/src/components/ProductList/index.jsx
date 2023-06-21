@@ -1,77 +1,88 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import { getProductList } from "../../service/api.service";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { titlesData } from "../../Utills/helper";
 
-const columns = [
-    { field: "id", headerName: "id", width: 100 },
-    { field: "title", headerName: "title", width: 160 },
-    { field: "category", headerName: "category", width: 160 },
-    {
-      field: "price",
-      headerName: "price",
-      type: "number",
-      width: 100
-    },
-    {
-      field: "discountPercentage",
-      headerName: "discountPercentage",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 130,
-      // valueGetter: (params) =>
-      //   `${params.row.firstName || ""} ${params.row.lastName || ""}`
-    },
-    {
-      field: "rating",
-      headerName: "rating",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 140,
-      // valueGetter: (params) =>
-      //   `${params.row.firstName || ""} ${params.row.lastName || ""}`
-    },
-    {
-      field: "stock",
-      headerName: "stock",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 140
-    },{
-      field: "brand",
-      headerName: "brand",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 150
-    }
-  ];
-  
 function ProductList() {
   const navigate = useNavigate();
-  const [productsList,setProductsList] = useState([]);
+  const [productsList, setProductsList] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     productListHandler();
-  },[]);
+  }, []);
 
-
-  const productListHandler = async () =>{
-    const productList = await getProductList();
-    console.log("productList",productList);
+  const productListHandler = async () => {
+    const productList = await getProductList(1);
     setProductsList(productList.data.products);
   };
 
-  const productAddHandler = () =>{
-      navigate("/add-product")
+  const productAddHandler = () => {
+    navigate("/add-product");
+  };
+
+  const paginationHandler = async (event, value) => {
+    const paginationApiHandler = await getProductList(value);
+    setProductsList(paginationApiHandler.data.products);
   };
 
   return (
     <Box height={"600"} width={"100%"}>
       <Box display={"flex"} justifyContent={"end"} marginBottom={2}>
-          <Button variant="outlined" onClick={productAddHandler}> Add product </Button>
+        <Button variant="outlined" onClick={productAddHandler}>
+          Add product
+        </Button>
       </Box>
-      <DataGrid
+
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              {titlesData.map((res) => {
+                return <TableCell>{res.name}</TableCell>;
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {productsList.map((row) => (
+              <TableRow
+                onClick={()=> navigate(`/view-product/${row.id}`)}
+                key={row.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.id}
+                </TableCell>
+                <TableCell>{row.title}</TableCell>
+                <TableCell>{row.category}</TableCell>
+                <TableCell>{row.price}</TableCell>
+                <TableCell>{row.discountPercentage}</TableCell>
+                <TableCell>{row.rating}</TableCell>
+                <TableCell>{row.stock}</TableCell>
+                <TableCell>{row.brand}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Box display={"flex"} justifyContent={"end"} mt={2}>
+        <Pagination count={10} onChange={paginationHandler} />
+      </Box>
+
+
+      {/* FIRST I USED THIS DATA GRID FOR DISPLAY DATA AND IMPLEMENT ALL FUNCNALITY AS WELL BUT
+         THEY DON`T PROVIDE CUSTOM FUNCANLITY SO NEED TO CHANGE 
+      */}
+
+      {/* <DataGrid
         rows={productsList}
         columns={columns}
         initialState={{
@@ -81,7 +92,7 @@ function ProductList() {
         }}
         pageSizeOptions={[5, 10]}
         onRowClick={(rows) => navigate(`/view-product/${rows.id}`)}
-      />
+      /> */}
     </Box>
   );
 }

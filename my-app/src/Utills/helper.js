@@ -15,3 +15,39 @@ export const productInitialValues = {
 }
 
 export const ENDPOINT  =  "https://dummyjson.com/products"
+
+export const sideBarList = [{
+    name: "create prdouct",
+    Link : "/add-product"
+},{
+    name : "Back",
+    Link : "/"
+}];
+
+
+export const titlesData = [
+    {
+        name : "id"
+    },
+    {
+        name : "title"
+    },
+    {
+        name : "category"
+    },
+    {
+        name : "price"
+    },
+    {
+        name : "discountPercentage"
+    },
+    {
+        name : "rating"
+    },
+    {
+        name : "stock"
+    },
+    {
+        name : "brand"
+    }
+]

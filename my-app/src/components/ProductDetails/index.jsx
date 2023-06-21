@@ -5,23 +5,23 @@ import { useParams } from "react-router-dom";
 
 function ProductDetails() {
   const { id } = useParams();
-  const [singleProduct,setSingleProduct] = useState();
+  const [singleProduct, setSingleProduct] = useState();
 
-  useEffect(()=>{
-    if(id){
+  useEffect(() => {
+    if (id) {
       getSingleProductHandler(id);
     }
-  },[]);
+  }, []);
 
-  const getSingleProductHandler = async (id) =>{
+  const getSingleProductHandler = async (id) => {
     const singleData = await singleProductdata(id);
-    console.log("singleData",singleData);
-    if(singleData.success){
-      setSingleProduct(singleData.data)
+    console.log("singleData", singleData);
+    if (singleData.success) {
+      setSingleProduct(singleData.data);
     }
-  }
+  };
 
-  return <Product productdata={singleProduct}/>
+  return <Product productdata={singleProduct} />;
 }
 
 export default ProductDetails;
